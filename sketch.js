@@ -1,5 +1,4 @@
 let ce;
-let music;
 let gameState = 'title';
 let ci;
 var catBtn;
@@ -13,9 +12,6 @@ let bc;
 var cat;
 
 function preload() {
-
-  soundFormats('mp3');
-//  music = loadSound('assets/jazz1.mp3', 'assets/jazz2.mp3', 'assets/jazz3.mp3');
   ce = loadImage('assets/cafeexterior.jpg');
   ci = loadImage('assets/cafeinterior-01.jpg');
   bc = loadImage('assets/catbackground-01.jpg');
@@ -157,12 +153,3 @@ function keyReleased() {
 //        if (key === 's' || key === 'S'){
 // }
 //   }
-
-
-// function mousePressed() {
-//    if (music.isPlaying()) {
-//      music.pause();
-//    } else {
-//      music.play();
-//    }
-// }

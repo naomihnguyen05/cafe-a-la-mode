@@ -6,3 +6,8 @@ html, body {
 canvas {
   display: block;
 }
+
+.playlist{
+  position: relative;
+  margin-bottom: auto;
+}
