@@ -4,6 +4,10 @@ let gameState = 'title';
 let ci;
 var catBtn;
 var doodleBtn;
+var myButton;
+var click1;
+var catImg;
+
 
 let bc;
 var cat;
@@ -15,12 +19,14 @@ function preload() {
   ce = loadImage('assets/cafeexterior.jpg');
   ci = loadImage('assets/cafeinterior-01.jpg');
   bc = loadImage('assets/catbackground-01.jpg');
+  catImg = loadImage('assets/cafecatbutton-05.png')
 
 }
 
 function setup() {
 
   createCanvas(1920, 1080);
+  InitialButton();
    // image(ce, 0, 0)
 
 
@@ -35,7 +41,7 @@ function setupCatGame() {
   var myAnimation = cat.addAnimation('sitting', 'assets/catstill.png', 'assets/catstill2.png', 'assets/catstill3.png');
   myAnimation.offY = 15;
   cat.addAnimation('walking', 'assets/catwalk.png', 'assets/catwalk2.png', 'assets/catwalk3.png');
-  //ghost.addAnimation('spinning', 'assets/ghost_spin0001.png', 'assets/ghost_spin0003.png');
+
 
 }
 
@@ -63,13 +69,7 @@ function drawCatGame() {
     cat.velocity.x = 0;
   }
 
-  //if(mouseIsPressed) {
-    //the rotation is not part of the spinning animation
-    //cat.rotation -= 10;
-    //cat.changeAnimation('spinning');
-  //}
-  //else
-    //cat.rotation = 0;
+
 
   //up and down keys to change the scale
   //note that scaling the image quality deteriorates
@@ -94,17 +94,19 @@ function startCatGame(){
 
 function draw() {
   // image(ci, 0, 0);
+
     switch (gameState) {
       case 'title':
         image(ce, 0, 0);
-
-        exterior ();
         break;
       case 'second':
         image(ci, 0, 0);
-        catBtn = createImg('assets/cafecatbutton-05.png');
+//        catBtn = createImg('assets/cafecatbutton-05.png');
+        click1.draw();
         doodleBtn = createImg('assets/cafedoodlebutton-04.png');
-        catBtn.position(1480, 930);
+//        catBtn.position(1480, 930);
+
+        //catBtn.mouseClicked(window.open("https://naomihnguyen05.github.io/3.1_library_demo/"))
         // catBtn.mousePressed(mouseReleased);
 
         doodleBtn.position(260, 830);
@@ -125,6 +127,18 @@ function draw() {
 //     gameState = 'cat_game';
 //   }
 // }
+function InitialButton() {
+  click1 = new Clickable();
+  click1.image = catImg;
+  click1.locate (1480, 930);
+  click1.resize(85,85);
+  click1.text = "   ";
+  click1.strokeWeight = 0;
+  click1.cornerRadius = 100;
+  click1.onRelease = function () {
+    gameState = 'cat_game'
+  }
+}
 
 function keyReleased() {
   if (gameState === 'title') {
@@ -132,24 +146,18 @@ function keyReleased() {
       gameState = 'second';
     }
   }
-  else if(gameState === 'second'){
-    if(key === 'c'){
-
-      gameState = 'cat_game'
-    }
-  }
+//  else if(gameState === 'second'){
+//    if(key === 'c'){
+//
+//      gameState = 'cat_game'
+//    }
+//  }
 }
 //   } else if (gameState === 'second'){
 //        if (key === 's' || key === 'S'){
 // }
 //   }
 
-function exterior() {
-  //ce = loadImage('assets/cafeexterior.jpg');
-  textSize (50);
-  textAlign(CENTER);
-  text('Press "S" To Start', 990, 1000);
-}
 
 // function mousePressed() {
 //    if (music.isPlaying()) {
