@@ -1,11 +1,12 @@
 let ce;
+let ch;
 let gameState = 'title';
 let ci;
-var catBtn;
-var doodleBtn;
-var myButton;
 var click1;
+var click2;
 var catImg;
+var doodleImg;
+var c = "black";
 
 
 let bc;
@@ -16,6 +17,8 @@ function preload() {
   ci = loadImage('assets/cafeinterior-01.jpg');
   bc = loadImage('assets/catbackground-01.jpg');
   catImg = loadImage('assets/cafecatbutton-05.png')
+  doodleImg = loadImage('assets/cafedoodlebutton-04.png')
+  ch = loadImage('assets/chalkboard.jpg')
 
 }
 
@@ -23,11 +26,41 @@ function setup() {
 
   createCanvas(1920, 1080);
   InitialButton();
-   // image(ce, 0, 0)
 
 
 }
 
+function drawDoodleGame() {
+  stroke(149);
+
+  if (mouseIsPressed) {
+		stroke(c);
+    line(mouseX, mouseY, pmouseX, pmouseY);
+  }
+
+  stroke(149);
+  strokeWeight(10);
+  //draw the first button
+  fill("white");
+  rect(1600,500,100,100);
+
+  //draw the second button
+  fill("black");
+  rect(1600,650,100,100);
+}
+
+//Doodle Game - Mouse Pressed
+//this will run whenever the mouse is pressed
+function mouseDraw() {
+  if (mouseX > 1600 && mouseX < 1700 && mouseY > 500 && mouseY < 600) {
+    //set the variables to random values
+    c = "white";
+  }
+  if (mouseX > 1600 && mouseX < 1700 && mouseY > 650 && mouseY < 750) {
+    //set the variables to random values
+    c = "black";
+  }
+}
 
 function setupCatGame() {
   // createCanvas(1920, 1080);
@@ -79,14 +112,6 @@ function drawCatGame() {
   drawSprites();
 }
 
-function startCatGame(){
-  image(bc, 0, 0);
-  setupCatGame();
-  drawCatGame()
-
-}
-
-
 
 function draw() {
   // image(ci, 0, 0);
@@ -97,32 +122,23 @@ function draw() {
         break;
       case 'second':
         image(ci, 0, 0);
-//        catBtn = createImg('assets/cafecatbutton-05.png');
         click1.draw();
-        doodleBtn = createImg('assets/cafedoodlebutton-04.png');
-//        catBtn.position(1480, 930);
-
-        //catBtn.mouseClicked(window.open("https://naomihnguyen05.github.io/3.1_library_demo/"))
-        // catBtn.mousePressed(mouseReleased);
-
-        doodleBtn.position(260, 830);
+        click2.draw();
         break;
-      case 'cat_game':
+        case 'cat_game':
         image(bc, 0, 0);
         setupCatGame();
         drawCatGame();
-
-
-
+        break;
+        case 'doodle_game':
+        image(ch, 0, 0);
+        drawDoodleGame();
+      //  mousePressed();
+        mouseDraw();
         break;
 }
 }
 
-// function mouseReleased(){
-//   if(gameState === 'second'){
-//     gameState = 'cat_game';
-//   }
-// }
 function InitialButton() {
   click1 = new Clickable();
   click1.image = catImg;
@@ -134,6 +150,16 @@ function InitialButton() {
   click1.onRelease = function () {
     gameState = 'cat_game'
   }
+  click2 = new Clickable();
+  click2.image = doodleImg;
+  click2.locate (260, 830);
+  click2.resize(85, 85);
+  click2.text = "   ";
+  click2.strokeWeight = 0;
+  click2.cornerRadius = 100;
+  click2.onRelease = function () {
+     gameState = 'doodle_game'
+  }
 }
 
 function keyReleased() {
@@ -142,14 +168,7 @@ function keyReleased() {
       gameState = 'second';
     }
   }
-//  else if(gameState === 'second'){
-//    if(key === 'c'){
-//
-//      gameState = 'cat_game'
-//    }
-//  }
 }
-//   } else if (gameState === 'second'){
-//        if (key === 's' || key === 'S'){
+
 // }
 //   }
