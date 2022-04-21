@@ -7,7 +7,7 @@ var click2;
 var catImg;
 var doodleImg;
 var c = "black";
-
+let chalkStart = true;
 
 let bc;
 var cat;
@@ -27,12 +27,20 @@ function setup() {
   createCanvas(1920, 1080);
   InitialButton();
 
+  cat = createSprite(850, 850, 184.5, 102.75);
+  var myAnimation = cat.addAnimation('sitting', 'assets/catstill.png', 'assets/catstill2.png', 'assets/catstill3.png');
+  myAnimation.offY = 15;
+  cat.addAnimation('walking', 'assets/catwalk.png', 'assets/catwalk2.png', 'assets/catwalk3.png');
+
 
 }
 
 function drawDoodleGame() {
-  stroke(149);
 
+  if (chalkStart == true) {
+    image(ch, 0, 0);
+    chalkStart = false;
+  }
   if (mouseIsPressed) {
 		stroke(c);
     line(mouseX, mouseY, pmouseX, pmouseY);
@@ -51,7 +59,7 @@ function drawDoodleGame() {
 
 //Doodle Game - Mouse Pressed
 //this will run whenever the mouse is pressed
-function mouseDraw() {
+function mousePressed() {
   if (mouseX > 1600 && mouseX < 1700 && mouseY > 500 && mouseY < 600) {
     //set the variables to random values
     c = "white";
@@ -62,22 +70,8 @@ function mouseDraw() {
   }
 }
 
-function setupCatGame() {
-  // createCanvas(1920, 1080);
-  // bc = loadImage('assets/catbackground-01.jpg');
-
-  cat = createSprite(850, 850, 184.5, 102.75);
-  var myAnimation = cat.addAnimation('sitting', 'assets/catstill.png', 'assets/catstill2.png', 'assets/catstill3.png');
-  myAnimation.offY = 15;
-  cat.addAnimation('walking', 'assets/catwalk.png', 'assets/catwalk2.png', 'assets/catwalk3.png');
-
-
-}
-
 function drawCatGame() {
-  // Displays the image at its actual size at point (0,0)
   // image(bc, 0, 0);
-  //background(220);
   //if mouse is to the left
   if(mouseX < cat.position.x - 10) {
     cat.changeAnimation('walking');
@@ -100,9 +94,7 @@ function drawCatGame() {
 
 
 
-  //up and down keys to change the scale
-  //note that scaling the image quality deteriorates
-  //and scaling to a negative value flips the image
+  // Cat Scaling
   if(keyIsDown(UP_ARROW))
     cat.scale += 0.05;
   if(keyIsDown(DOWN_ARROW))
@@ -114,8 +106,6 @@ function drawCatGame() {
 
 
 function draw() {
-  // image(ci, 0, 0);
-
     switch (gameState) {
       case 'title':
         image(ce, 0, 0);
@@ -127,14 +117,12 @@ function draw() {
         break;
         case 'cat_game':
         image(bc, 0, 0);
-        setupCatGame();
         drawCatGame();
         break;
         case 'doodle_game':
-        image(ch, 0, 0);
+        // image(ch, 0, 0);
         drawDoodleGame();
-      //  mousePressed();
-        mouseDraw();
+        mousePressed();
         break;
 }
 }
@@ -158,6 +146,7 @@ function InitialButton() {
   click2.strokeWeight = 0;
   click2.cornerRadius = 100;
   click2.onRelease = function () {
+    chalkStart = true;
      gameState = 'doodle_game'
   }
 }
