@@ -6,6 +6,8 @@ var click1;
 var click2;
 var catImg;
 var doodleImg;
+var xImg;
+var startImg;
 var c = "black";
 let chalkStart = true;
 
@@ -13,12 +15,14 @@ let bc;
 var cat;
 
 function preload() {
-  ce = loadImage('assets/cafeexterior.jpg');
+  ce = loadImage('assets/cafeexterior-01.jpg');
   ci = loadImage('assets/cafeinterior-01.jpg');
   bc = loadImage('assets/catbackground-01.jpg');
+  ch = loadImage('assets/chalkboard.jpg')
   catImg = loadImage('assets/cafecatbutton-05.png')
   doodleImg = loadImage('assets/cafedoodlebutton-04.png')
-  ch = loadImage('assets/chalkboard.jpg')
+  xImg = loadImage('assets/xbutton-06.png')
+  startImg = loadImage('assets/cafestartbutton-03.png')
 
 }
 
@@ -46,7 +50,7 @@ function drawDoodleGame() {
     line(mouseX, mouseY, pmouseX, pmouseY);
   }
 
-  stroke(149);
+  stroke(150);
   strokeWeight(10);
   //draw the first button
   fill("white");
@@ -109,6 +113,7 @@ function draw() {
     switch (gameState) {
       case 'title':
         image(ce, 0, 0);
+        click0.draw();
         break;
       case 'second':
         image(ci, 0, 0);
@@ -118,16 +123,28 @@ function draw() {
         case 'cat_game':
         image(bc, 0, 0);
         drawCatGame();
+        click3.draw();
         break;
         case 'doodle_game':
         // image(ch, 0, 0);
         drawDoodleGame();
         mousePressed();
+        click4.draw();
         break;
 }
 }
 
 function InitialButton() {
+  click0 = new Clickable();
+  click0.image = startImg;
+  click0.locate (1430, 680);
+  click0.resize(146,146);
+  click0.text = "   ";
+  click0.strokeWeight = 0;
+  click0.cornerRadius = 100;
+  click0.onRelease = function () {
+    gameState = 'second'
+  }
   click1 = new Clickable();
   click1.image = catImg;
   click1.locate (1480, 930);
@@ -149,15 +166,35 @@ function InitialButton() {
     chalkStart = true;
      gameState = 'doodle_game'
   }
+  click3 = new Clickable();
+  click3.image = xImg;
+  click3.locate (10, 10);
+  click3.resize(50, 50);
+  click3.text = "   ";
+  click3.strokeWeight = 0;
+  click3.cornerRadius = 100;
+  click3.onRelease = function () {
+     gameState = 'second'
+}
+click4 = new Clickable();
+click4.image = xImg;
+click4.locate (10, 10);
+click4.resize(50, 50);
+click4.text = "   ";
+click4.strokeWeight = 0;
+click4.cornerRadius = 100;
+click4.onRelease = function () {
+   gameState = 'second'
+ }
 }
 
-function keyReleased() {
-  if (gameState === 'title') {
-    if (key === 's') {
-      gameState = 'second';
-    }
-  }
-}
+// function keyReleased() {
+//   if (gameState === 'title') {
+//     if (key === 's') {
+//       gameState = 'second';
+//     }
+//   }
+// }
 
 // }
 //   }
