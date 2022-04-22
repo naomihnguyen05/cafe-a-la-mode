@@ -1,19 +1,22 @@
+// backgrounds
 let ce;
 let ch;
-let gameState = 'title';
 let ci;
-var click1;
-var click2;
+let bc;
+// button images
 var catImg;
 var doodleImg;
 var xImg;
 var startImg;
-var c = "black";
+// doodle game
+let value = 0;
 let chalkStart = true;
-
-let bc;
+// cat game
 var cat;
+// switch statement
+let gameState = 'title';
 
+// Loading Images
 function preload() {
   ce = loadImage('assets/cafeexterior-01.jpg');
   ci = loadImage('assets/cafeinterior-01.jpg');
@@ -23,7 +26,6 @@ function preload() {
   doodleImg = loadImage('assets/cafedoodlebutton-04.png')
   xImg = loadImage('assets/xbutton-06.png')
   startImg = loadImage('assets/cafestartbutton-03.png')
-
 }
 
 function setup() {
@@ -35,8 +37,6 @@ function setup() {
   var myAnimation = cat.addAnimation('sitting', 'assets/catstill.png', 'assets/catstill2.png', 'assets/catstill3.png');
   myAnimation.offY = 15;
   cat.addAnimation('walking', 'assets/catwalk.png', 'assets/catwalk2.png', 'assets/catwalk3.png');
-
-
 }
 
 function drawDoodleGame() {
@@ -46,31 +46,18 @@ function drawDoodleGame() {
     chalkStart = false;
   }
   if (mouseIsPressed) {
-		stroke(c);
+		stroke(value);
+    strokeWeight(20);
     line(mouseX, mouseY, pmouseX, pmouseY);
   }
-
-  stroke(150);
-  strokeWeight(10);
-  //draw the first button
-  fill("white");
-  rect(1600,500,100,100);
-
-  //draw the second button
-  fill("black");
-  rect(1600,650,100,100);
 }
 
-//Doodle Game - Mouse Pressed
-//this will run whenever the mouse is pressed
-function mousePressed() {
-  if (mouseX > 1600 && mouseX < 1700 && mouseY > 500 && mouseY < 600) {
-    //set the variables to random values
-    c = "white";
+function keyPressed(){
+  if(key == 'e'){
+    value = 0;
   }
-  if (mouseX > 1600 && mouseX < 1700 && mouseY > 650 && mouseY < 750) {
-    //set the variables to random values
-    c = "black";
+  if(key == 'w'){
+    value = 255;
   }
 }
 
@@ -96,8 +83,6 @@ function drawCatGame() {
     cat.velocity.x = 0;
   }
 
-
-
   // Cat Scaling
   if(keyIsDown(UP_ARROW))
     cat.scale += 0.05;
@@ -108,7 +93,7 @@ function drawCatGame() {
   drawSprites();
 }
 
-
+// switch statement
 function draw() {
     switch (gameState) {
       case 'title':
@@ -128,12 +113,14 @@ function draw() {
         case 'doodle_game':
         // image(ch, 0, 0);
         drawDoodleGame();
-        mousePressed();
+        // mousePressed();
+        keyPressed();
         click4.draw();
         break;
 }
 }
 
+// clickables
 function InitialButton() {
   click0 = new Clickable();
   click0.image = startImg;
@@ -187,14 +174,3 @@ click4.onRelease = function () {
    gameState = 'second'
  }
 }
-
-// function keyReleased() {
-//   if (gameState === 'title') {
-//     if (key === 's') {
-//       gameState = 'second';
-//     }
-//   }
-// }
-
-// }
-//   }
