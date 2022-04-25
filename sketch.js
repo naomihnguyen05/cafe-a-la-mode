@@ -15,17 +15,21 @@ let chalkStart = true;
 var cat;
 // switch statement
 let gameState = 'title';
+// homescreen animation
+var kitty, steam;
 
 // Loading Images
 function preload() {
   ce = loadImage('assets/cafeexterior-01.jpg');
-  ci = loadImage('assets/cafeinterior-01.jpg');
+  ci = loadImage('assets/cafeinteriordesign-02.jpg');
   bc = loadImage('assets/catbackground-01.jpg');
   ch = loadImage('assets/chalkboard.jpg')
   catImg = loadImage('assets/cafecatbutton-05.png')
   doodleImg = loadImage('assets/cafedoodlebutton-04.png')
   xImg = loadImage('assets/xbutton-06.png')
   startImg = loadImage('assets/cafestartbutton-03.png')
+  kitty = loadAnimation('assets/kitty-10.png', 'assets/kitty-11.png', 'assets/kitty-12.png', 'assets/kitty-13.png');
+  steam = loadAnimation('assets/steam-07.png', 'assets/steam-08.png', 'assets/steam-09.png');
 }
 
 function setup() {
@@ -82,6 +86,10 @@ function drawCatGame() {
     cat.changeAnimation('sitting');
     cat.velocity.x = 0;
   }
+  if (cat.position.x > 1920 && cat.position.x < 0) {
+    cat.changeAnimation('sitting');
+    cat.velocity.x = 0;
+  }
 
   // Cat Scaling
   if(keyIsDown(UP_ARROW))
@@ -102,6 +110,8 @@ function draw() {
         break;
       case 'second':
         image(ci, 0, 0);
+        animation(kitty, 1590, 910);
+        animation(steam, 540, 657);
         click1.draw();
         click2.draw();
         break;
@@ -117,7 +127,7 @@ function draw() {
         keyPressed();
         click4.draw();
         break;
-}
+      }
 }
 
 // clickables
