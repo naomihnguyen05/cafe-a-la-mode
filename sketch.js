@@ -3,11 +3,13 @@ let ce;
 let ch;
 let ci;
 let bc;
+let as;
 // button images
 var catImg;
 var doodleImg;
 var xImg;
 var startImg;
+var asImg;
 // doodle game
 let value = 0;
 let chalkStart = true;
@@ -23,11 +25,13 @@ function preload() {
   ce = loadImage('assets/cafeexterior-01.jpg');
   ci = loadImage('assets/cafeinteriordesign-02.jpg');
   bc = loadImage('assets/catbackground-01.jpg');
-  ch = loadImage('assets/chalkboard.jpg')
-  catImg = loadImage('assets/cafecatbutton-05.png')
-  doodleImg = loadImage('assets/cafedoodlebutton-04.png')
-  xImg = loadImage('assets/xbutton-06.png')
-  startImg = loadImage('assets/cafestartbutton-03.png')
+  ch = loadImage('assets/chalkboard.jpg');
+  as = loadImage('assets/message-14.jpg');
+  catImg = loadImage('assets/cafecatbutton-05.png');
+  doodleImg = loadImage('assets/cafedoodlebutton-04.png');
+  xImg = loadImage('assets/xbutton-06.png');
+  startImg = loadImage('assets/cafestartbutton-03.png');
+  asImg = loadImage('assets/artiststatement-15.png');
   kitty = loadAnimation('assets/kitty-10.png', 'assets/kitty-11.png', 'assets/kitty-12.png', 'assets/kitty-13.png');
   steam = loadAnimation('assets/steam-07.png', 'assets/steam-08.png', 'assets/steam-09.png');
 }
@@ -107,6 +111,7 @@ function draw() {
       case 'title':
         image(ce, 0, 0);
         click0.draw();
+        click5.draw();
         break;
       case 'second':
         image(ci, 0, 0);
@@ -127,6 +132,9 @@ function draw() {
         keyPressed();
         click4.draw();
         break;
+        case 'message':
+        image(as, 0, 0);
+        click6.draw();
       }
 }
 
@@ -183,4 +191,25 @@ click4.cornerRadius = 100;
 click4.onRelease = function () {
    gameState = 'second'
  }
+ click5 = new Clickable();
+ click5.image = asImg;
+ click5.locate (90, 150);
+ click5.resize(150, 30);
+ click5.text = "   ";
+ click5.strokeWeight = 1;
+ click5.stroke = "#4D4D4D";
+ click5.cornerRadius = 100;
+ click5.onRelease = function () {
+    gameState = 'message'
+}
+click6 = new Clickable();
+click6.image = xImg;
+click6.locate (10, 10);
+click6.resize(50, 50);
+click6.text = "   ";
+click6.strokeWeight = 0;
+click6.cornerRadius = 100;
+click6.onRelease = function () {
+   gameState = 'title'
+}
 }
